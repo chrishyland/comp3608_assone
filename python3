@@ -1,4 +1,4 @@
-'''
+.ryyrry,.rryry.,..y.r..,..y....,.......,....... red A 4'''
 About: COMP3608 Assignment 1
 Author: Charles Christopher Hyland
 
@@ -42,6 +42,7 @@ def start_game():
 	algorithm_choice = parameters[2]
 	max_depth = int(parameters[3]) # Depth for algorithm to search
 	
+	print(list(board[0]))
 	return {'board_state':board, 'player':player, 
 			'algo':algorithm_choice, 'depth': max_depth}
 
@@ -51,33 +52,13 @@ def create_board(list_of_states):
 	return np.array([np.array(row) for row in list_of_states])
 
 
-def print_board(array_board):
-	'''Print out board.'''
-	for i in range(ROW-1, 0, -1):
-		for j in range(0, COLUMN):
-			print(array_board[i][j], end=' ')
-		print()
-
-
 def valid_moves(array_board):
 	'''Figures out valid moves from NUMPY array.'''
-	moves_can_make = [] # Stores co-ordinates of where can play
-
-	for i in range(ROW-1, 0, -1):
+	print(array_board)
+	for i in range(0, ROW):
 		for j in range(0, COLUMN):
-			
-
 			print(array_board[i][j], end=' ')
-		print()
 
-
-def valid_coordinate(row, column):
-	'''Checks if coordinate to be evaluated is within board.'''
-	if row>=ROW or row<0:
-		return 0
-	if column>=COLUMN or column<0:
-		return 0
-	return 1 # No issues with board
 
 
 # def evaluate(state):
