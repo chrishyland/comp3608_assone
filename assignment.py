@@ -169,6 +169,11 @@ def num_in_a_row(count, array_board, player):
 	return (num_hor + num_vert + num_diag_r + num_diag_l)
 
 
+def score(array_board, player):
+	'''Computes the score of a player.'''
+	return count_total_tokens(array_board, player) + (10*num_in_a_row(2, array_board, player)) + (100*num_in_a_row(3, array_board, player)) + (1000*num_in_a_row(4, array_board, player))
+
+
 def count_total_tokens(array_board, player):
 	'''Count total number of tokens player has on board'''
 	count = 0
@@ -241,23 +246,15 @@ def main():
 	print_board(board)
 	valid = valid_moves(board)
 	
-	print(count_total_tokens(board, 'r')) # 7
-	print(count_total_tokens(board, 'y')) # 7
-	
 	print("")
 	
 	print("Player r")
-	print("We have {} in total".format(count_total_tokens(board, 'r')))
-	print(num_in_a_row(2, board, 'r'))
-	print(num_in_a_row(3, board, 'r'))
-	print(num_in_a_row(4, board, 'r'))
-	
-	print("Player y")
-	print("We have {} in total".format(count_total_tokens(board, 'y')))
-	print(num_in_a_row(2, board, 'y'))
-	print(num_in_a_row(3, board, 'y'))
-	print(num_in_a_row(4, board, 'y'))
+	print("Score is {}".format(score(board, 'r')))
 
+	print("")
+
+	print("Player y")
+	print("Score is {}".format(score(board, 'y')))
 
 
 
