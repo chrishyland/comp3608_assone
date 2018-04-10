@@ -11,7 +11,7 @@ the algorithm with and without alpha-beta pruning.
 
 from sys import maxsize # Replacement for infinity value.
 from game_setup import * # Contains all functions to set up game
-from state import * # Import the state objects
+
 
 def main():
 

@@ -45,7 +45,8 @@ def is_sequence_horizontal(i, j, count, player, array_board):
 	
 	if(within_range(i, j-1) and array_board[i][j-1] == player):
 		return 0 # Current token is part of previous sequence
-
+	if(within_range(i, j+count) and array_board[i][j+count] == player):
+		return 0 # Part of longer sequence.
 	track = 0
 	for step in range(0, count):
 		if(within_range(i, j+step)):
@@ -55,11 +56,7 @@ def is_sequence_horizontal(i, j, count, player, array_board):
 	
 	if(track != count):
 		return 0
-
-	if(within_range(i, j+count) and array_board[i][j+count] == player):
-		return 0 # Part of longer sequence.
-	else:
-		return 1
+	return 1
 
 
 def is_sequence_vertical(i, j, count, player, array_board):
@@ -68,6 +65,8 @@ def is_sequence_vertical(i, j, count, player, array_board):
 	if(within_range(i-1, j) and array_board[i-1][j] == player):
 		return 0 # Current token is part of previous sequence
 	
+	if(within_range(i+count, j) and array_board[i+count][j] == player):
+		return 0 # Part of longer sequence.
 	track = 0
 	for step in range(0, count):
 		if(within_range(i+step, j)):
@@ -77,11 +76,7 @@ def is_sequence_vertical(i, j, count, player, array_board):
 	
 	if(track != count):
 		return 0
-
-	if(within_range(i+count, j) and array_board[i+count][j] == player):
-		return 0 # Part of longer sequence.
-	else:
-		return 1
+	return 1
 
 
 def is_sequence_right_diagonal(i, j, count, player, array_board):
@@ -90,6 +85,8 @@ def is_sequence_right_diagonal(i, j, count, player, array_board):
 	if(within_range(i-1, j-1) and array_board[i-1][j-1] == player):
 		return 0 # Current token is part of previous sequence
 	
+	if(within_range(i+count, j+count) and array_board[i+count][j+count] == player):
+		return 0 # Part of longer sequence.
 	track = 0
 	for step in range(0, count):
 		if(within_range(i+step, j+step)):
@@ -99,11 +96,7 @@ def is_sequence_right_diagonal(i, j, count, player, array_board):
 	
 	if(track != count):
 		return 0
-
-	if(within_range(i+count, j+count) and array_board[i+count][j+count] == player):
-		return 0 # Part of longer sequence.
-	else:
-		return 1
+	return 1
 
 
 def is_sequence_left_diagonal(i, j, count, player, array_board):
@@ -111,7 +104,11 @@ def is_sequence_left_diagonal(i, j, count, player, array_board):
 	
 	if(within_range(i-1, j+1) and array_board[i-1][j+1] == player):
 		return 0 # Current token is part of previous sequence
-	
+
+
+	if(within_range(i+count, j-count) and array_board[i+count][j-count] == player):
+		return 0 # Part of longer sequence.
+
 	track = 0
 	for step in range(0, count):
 		if(within_range(i+step, j-step)):
@@ -121,11 +118,7 @@ def is_sequence_left_diagonal(i, j, count, player, array_board):
 	
 	if(track != count):
 		return 0
-
-	if(within_range(i+count, j-count) and array_board[i+count][j-count] == player):
-		return 0 # Part of longer sequence.
-	else:
-		return 1
+	return 1
 
 
 def NUM_IN_A_ROW(count, array_board, player):
