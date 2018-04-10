@@ -3,12 +3,12 @@ About: COMP3608 Assignment 1
 Author: Charles Christopher Hyland
 
 ----------------------------------------------------------------------------------------------------
-Class to create nodes.
+Class to store boards.
 ----------------------------------------------------------------------------------------------------
 
 '''
 
-class node:
+class board(Object):
 	def __init__(self, i_depth, i_player, i_value):
 		self.i_depth = i_depth
 		self.i_player = i_player
