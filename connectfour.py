@@ -8,10 +8,10 @@ the algorithm with and without alpha-beta pruning.
 ----------------------------------------------------------------------------------------------------
 
 '''
-
 from sys import maxsize # Replacement for infinity value.
 from game_setup import * # Contains all functions to set up game
-
+from tree import * # Import the state objects
+from game_actions import *
 
 def main():
 
@@ -31,8 +31,18 @@ def main():
 	print("Player y")
 	print("SCORE is {}".format(SCORE(board, PLAYER_YELLOW)))
 
-	print("Evaluate is {}".format(EVALUATION(board)))
+	print("Evaluate is {}".format(EVALUATION(board, PLAYER_RED)))
 
+	print(" ")
+	
+	game_tree = Tree()
+	game_tree.initailise_tree(initial_state['player'], board)
+	print("Time to play the game")
+	print(game_tree.root)
+	
+	game_tree.build_tree(initial_state['depth'], board)
+
+	
 
 if __name__ == '__main__':
 	main()
