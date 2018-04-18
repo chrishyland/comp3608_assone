@@ -9,6 +9,7 @@ Setting up the game.
 '''
 
 import numpy as np
+import sys
 
 ROW = 6 # These are constant for the board.
 COLUMN = 7
@@ -18,12 +19,15 @@ PLAYER_YELLOW = 'y'
 
 def start_game():
 	'''Initialises the game and return dict.'''
-	parameters = input().split(' ')
-	board = parameters[0].split(',')
-	player = parameters[1] # Who's about to play
-	algorithm_choice = parameters[2]
-	max_depth = int(parameters[3]) # Depth for algorithm to search
-	
+	parameters = sys.argv
+	board = parameters[1].split(',')
+	player = "" # Who's about to play
+	if parameters[2] == 'red':
+		player = 'r'
+	else:
+		player = 'y'
+	algorithm_choice = parameters[3]
+	max_depth = int(parameters[4]) # Depth for algorithm to search
 	return {'board_state':board, 'player':player, 
 			'algo':algorithm_choice, 'depth': max_depth}
 
@@ -46,14 +50,3 @@ def print_board(array_board):
 		for j in range(0, COLUMN):
 			print(array_board[i][j], end=' ')
 		print()
-
-
-
-
-def valid_coordinate(row, column):
-	'''Checks if coordinate to be evaluated is within board.'''
-	if row>=ROW or row<0:
-		return 0
-	if column>=COLUMN or column<0:
-		return 0
-	return 1 # No issues with board

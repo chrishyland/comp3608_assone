@@ -3,45 +3,36 @@ About: COMP3608 Assignment 1
 Author: Charles Christopher Hyland
 
 ----------------------------------------------------------------------------------------------------
-This code will play a game of connect four using the minimax algorithm. There will be a variant of 
-the algorithm with and without alpha-beta pruning.
+This is testing purposes and used to modularise the code.
 ----------------------------------------------------------------------------------------------------
 
 '''
-from sys import maxsize # Replacement for infinity value.
+import sys
 from game_setup import * # Contains all functions to set up game
-from tree import * # Import the state objects
 from game_actions import *
+from state import *
+from minmax import *
+from alpha_beta import *
 
 def main():
 
 	initial_state = start_game()
 	board = create_board(initial_state['board_state'])
-	print(board)
-	print_board(board)
-	valid = valid_moves(board)
+
+	# Create game tree.
+	root = create_tree(initial_state['depth'], board, initial_state['player'])
+	#print(min_max(root, initial_state['depth'], True, root.player))
 	
-	print("")
+	if initial_state['algo'] == 'M':
+		# Minimax algorithm.
+		print(move_make(root, initial_state['depth'], True, root.player)[1].move[1])
 	
-	print("Player r")
-	print("SCORE is {}".format(SCORE(board, PLAYER_RED)))
+		print(countNodes(root))
 
-	print("")
-
-	print("Player y")
-	print("SCORE is {}".format(SCORE(board, PLAYER_YELLOW)))
-
-	print("Evaluate is {}".format(EVALUATION(board, PLAYER_RED)))
-
-	print(" ")
-	
-	game_tree = Tree()
-	game_tree.initailise_tree(initial_state['player'], board)
-	print("Time to play the game")
-	print(game_tree.root)
-	
-	game_tree.build_tree(initial_state['depth'], board)
-
+	else:
+		print(move_make(root, initial_state['depth'], True, root.player)[1].move[1])
+		#print(alpha_beta(root, initial_state['depth'], -100000000, 100000000, True, initial_state['player']))
+		
 	
 
 if __name__ == '__main__':
