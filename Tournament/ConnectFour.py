@@ -3,7 +3,7 @@ About: COMP3608 Assignment 1
 Author: Charles Christopher Hyland
 
 ----------------------------------------------------------------------------------------------------
-This is testing purposes and used to modularise the code.
+Tournament mode for COMP3608.
 ----------------------------------------------------------------------------------------------------
 
 '''
@@ -18,27 +18,28 @@ def main():
 
 	initial_state = start_game()
 	board = create_board(initial_state['board_state'])
-
 	# Create game tree.
-	root = create_tree(initial_state['depth'], board, initial_state['player'])
-	
-	if initial_state['algo'] == 'M':
-		# Minimax algorithm.
-		value = min_max(root, initial_state['depth'], True, root.player, 0)
-		for i, node in enumerate(root.children):
-			if node.value == value[0]:
-				print(i)
-				break
-		print(value[1])
+	root = create_tree(3, board, initial_state['player'])
+
+	# For first round move.
+	if first_move(board, initial_state['player']) == True:
+		return
 	else:
 		# Alpha Beta
-		value = alpha_beta(root, initial_state['depth'], -100000000, 100000000,  True, root.player, 0)
+		value = alpha_beta(root, 3, -100000000, 100000000,  True, root.player, 0)
 		for i, node in enumerate(root.children):
 			if node.value == value[0]:
-				print(i)
-				break
-		print(value[1])
-			
+				if board[5][i] == '.':
+					# Make sure not playing invalid position.
+					print(i)
+					return
+
+		# Unable to play any moves so play random moves from the top.
+		for i in range(5, -1, -1):
+			for j in range(6, -1, -1):
+				if board[i][j] == '.' and board[i-1][j] != '.':
+					print(j)
+					return
 
 if __name__ == '__main__':
 	main()

@@ -10,7 +10,7 @@ Class for the state nodes and building tree.
 from game_actions import *
 
 class State():
-	def __init__(self, player, board, move, win, full=False, parent=None):
+	def __init__(self, player, board, move, win, parent=None):
 		self.player = player # who's turn to play
 		self.board = board
 		self.parent = parent # node reference
@@ -18,23 +18,19 @@ class State():
 		self.value = 0
 		self.move = move # the OG move.
 		self.win = win # Check if game is over.
-		self.full = full # Still able to play moves.
 
 
 	def create_children(self):
 		'''Create children for the current state.'''
 		possible_moves = valid_moves(self.board)
 		for move in possible_moves:
-			if move == None:
-				self.full = True # checks if board full.
-				return
 			# Create children of this current node.
 			self.children.append(create_child(parent=self, move=move, board=np.copy(self.board), player_turn=self.player))
 
 
 def create_child(parent, move, board, player_turn):
 	'''Creates child node by updating move.'''
-	turn_to_play = None
+	turn_to_play = None 
 	if parent.player == PLAYER_YELLOW: # Get opposite player.
 		turn_to_play = PLAYER_RED
 	else:
@@ -62,9 +58,9 @@ def recurse_build(node, current_depth, depth):
 	'''Recursively build the tree.'''
 	if current_depth == depth: # base case.
 		return
-
+	
 	node.create_children() # build children.
 	for child in node.children:
 		# So that we don't build terminal nodes.
-		if child.win == False and child.full == False:
+		if child.win == False:
 			recurse_build(child, current_depth+1, depth)
